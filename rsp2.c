@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main()
+int main_rsp2()
 {
 	// 한글은 2byte차지
 	// 가위 => 2*2+1(\n) = 5
