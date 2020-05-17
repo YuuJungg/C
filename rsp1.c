@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main()
+int main_rsp1()
 {
 	char me;
 	int com;
