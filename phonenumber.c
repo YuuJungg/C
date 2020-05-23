@@ -1,46 +1,77 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-// ÀüÈ­¹øÈ£ºÎ ±¸Á¶Ã¼ »ı¼º
+// ì „í™”ë²ˆí˜¸ë¶€ êµ¬ì¡°ì²´ ìƒì„±
+typedef struct PhoneNumber Phone;
 struct PhoneNumber {
-    char name[20];
-    char number[20];
+    char name[100];
+    char number[100];
 };
 
 int main()
 {
-    struct PhoneNumber n1, n2; // n1, n2 ±¸Á¶Ã¼ º¯¼ö ¼±¾ğ
+    Phone* info = 0;
+    int done = 0;
+    int i = 0;
+    int temp;
+    int size = 3; // ìµœì†Œ ì „í™”ë²ˆí˜¸ë¶€ 3ëª…
 
-    while (1) // ÀÌ¸§À» Àß ÀÔ·ÂÇÒ ¶§±îÁö ¹İº¹
+    info = (Phone*)calloc(size, sizeof(int));
+
+    printf("<ì „í™”ë²ˆí˜¸ë¶€>\n");
+    while (!done)
     {
-        printf("ÀÌ¸§>> ");
-        scanf("%s", n1.name);
-        if (strlen(n1.name) > 15)
-            printf("ÀÔ·Â °¡´ÉÇÑ ±ÛÀÚ¼ö¸¦ ÃÊ°úÇÏ¿´½À´Ï´Ù\n");
-        else
-            break;
-    }
-    printf("ÀüÈ­¹øÈ£ºÎ>> ");
-    scanf("%s", n1.number);
-    while (1) // n1°ú n2¸¦ ´Ù¸£°Ô ÀÔ·ÂÇÒ ¶§±îÁö ¹İº¹
-    {
-        while (1) // ÀÌ¸§À» Àß ÀÔ·ÂÇÒ ¶§±îÁö ¹İº¹
+        while (!done)
         {
-            printf("ÀÌ¸§>> ");
-            scanf("%s", n2.name);
-            if (strlen(n2.name) > 15)
-                printf("ÀÔ·Â °¡´ÉÇÑ ±ÛÀÚ¼ö¸¦ ÃÊ°úÇÏ¿´½À´Ï´Ù\n");
-            else
-                break;
-        }
-        printf("ÀüÈ­¹øÈ£ºÎ>> ");
-        scanf("%s", n2.number);
+            printf("*%dë²ˆì§¸ ì „í™”ë²ˆí˜¸ë¶€*\n", i + 1);
+            while (1) // ì´ë¦„ì„ ì˜ ì…ë ¥í•  ë•Œê¹Œì§€ ë°˜ë³µ
+            {
+                printf("ì´ë¦„>> ");
+                scanf("%s", info[i].name);
+                if (strlen(info[i].name) > 15)
+                    printf("ì…ë ¥ ê°€ëŠ¥í•œ ê¸€ììˆ˜ë¥¼ ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤\n");
+                else
+                    break;
+            }
+            printf("ì „í™”ë²ˆí˜¸>> ");
+            scanf("%s", &info[i].number);
 
-        // strcmpÇÔ¼ö´Â °°À¸¸é 0À» ¹İÈ¯ÇÏ¹Ç·Î 
-        if (strcmp(n1.name, n2.name) == 0 && strcmp(n1.number, n2.number) == 0)
-            printf("Áßº¹µÇ¾ú½À´Ï´Ù.\n");
-        else
-            break;
+            // strcmpí•¨ìˆ˜ëŠ” ê°™ìœ¼ë©´ 0ì„ ë°˜í™˜í•˜ë¯€ë¡œ 
+            if (strcmp(info[i].name, info[i + 1].name) == 0 && strcmp(info[i].number, info[i + 1].number) == 0)
+                printf("ì¤‘ë³µë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+
+            if ((i + 1) >= size)
+            {
+                printf("\nì…ë ¥í•  ì „í™”ë²ˆí˜¸ë¶€ê°€ ë” ì—†ìœ¼ë©´ 1, ìˆìœ¼ë©´ 0 ì…ë ¥ >> ");
+                scanf("%d", &done);
+
+                if (done)
+                    continue;
+                else
+                {
+                    temp = size; // temp=3
+                    printf("ì¶”ê°€ëœ ì „í™”ë²ˆí˜¸ë¶€ ì‚¬ëŒ ìˆ˜ : ");
+                    scanf("%d", &size);// size=2
+                    size += temp;
+                    info = (int*)realloc(info,size);
+                }
+            }
+            i++;
+        }
+
+
     }
 
+    printf("\n<ì „í™”ë²ˆí˜¸ë¶€ì— ì…ë ¥ëœ ì‚¬ëŒ>\n");
+    for (i = 0; i < size; i++)
+    {
+        printf("%d\n", i + 1);
+        printf("ì´ë¦„>> %s\n", info[i].name);
+        printf("ì „í™”ë²ˆí˜¸>> %s\n", info[i].number);
+
+    }
+	
+    free(info);
+    return 0;
 }
