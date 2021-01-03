@@ -1,18 +1,23 @@
+/*
+2021-01-03
+C언어로 쉽게 풀어쓴 자료구조 공부
+작성자 : 조유정
+*/
 #include <stdio.h>
 
-void swap(int* a, int* b);
-int main()
+void swap(int* px, int* py)
 {
-	int a = 10;
-	int b = 20;
-	printf("before | a : %d b : %d\n", a, b);
-	swap(&a, &b);
-	printf(" after | a : %d b : %d\n", a, b);
+	int tmp;
+	tmp = *px;
+	*px = *py;
+	*py = tmp;
 }
 
-void swap(int* a, int* b)
+int main()
 {
-	int temp = *a;
-	*a = *b;
-	*b = temp;
+	int a = 1, b = 2;
+	printf("swap을 호출하기 전 : a=%d, b=%d\n", a, b);
+	swap(&a, &b);
+	printf("swap을 호출한 다음 : a=%d, b=%d\n", a, b);
+	return 0;
 }
